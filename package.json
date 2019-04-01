@@ -5,13 +5,13 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "postinstall": "npm run prestart:prod",
+    "postinstall": "tsc",
     "build": "tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
     "start:dev": "nodemon",
     "start:debug": "nodemon --config nodemon-debug.json",
-    "start:prod": "node dist/main.js",
+    "start:prod": "node dist/src/main.js",
     "prestart:prod": "rimraf dist && npm run build",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
@@ -20,6 +20,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
+  "engines": {
+    "node": "9.11.2"
+  },  
   "dependencies": {
     "@nestjs/common": "^6.0.2",
     "@nestjs/core": "^6.0.2",
