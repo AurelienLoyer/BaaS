@@ -22,14 +22,16 @@
   },
   "engines": {
     "node": "9.11.2"
-  },  
+  },
   "dependencies": {
     "@nestjs/common": "^6.0.2",
     "@nestjs/core": "^6.0.2",
     "@nestjs/platform-express": "^6.0.0",
+    "@nestjs/swagger": "^3.0.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^2.6.2",
-    "rxjs": "^6.4.0"
+    "rxjs": "^6.4.0",
+    "swagger-ui-express": "^4.0.2"
   },
   "devDependencies": {
     "@types/express": "^4.16.0",
