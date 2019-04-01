@@ -8,14 +8,13 @@ async function bootstrap() {
   app.enableCors();
 
   const options = new DocumentBuilder()
-    .setTitle('BaaS')
-    .setDescription('The beer API')
+    .setTitle('🍺 Beer as a Service')
+    .setDescription('An API to retrieve beers informations')
     .setVersion('1.0')
-    .addTag('beers')
     .build();
-    
+
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('docs', app, document);
 
   await app.listen(process.env.PORT || 3000);
 
