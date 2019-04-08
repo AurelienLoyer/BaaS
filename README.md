@@ -4,6 +4,10 @@
 
 BaaS is beer as a service using [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Demo
+
+[Demo on Herokuapp](https://beerasaservice.herokuapp.com/)
+
 ## Installation
 
 ```bash
