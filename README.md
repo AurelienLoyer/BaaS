@@ -8,6 +8,10 @@ BaaS is beer as a service using [Nest](https://github.com/nestjs/nest) framework
 
 [Demo on Herokuapp](https://beerasaservice.herokuapp.com/)
 
+## Swagger / Documentation
+
+[Docs on Herokuapp](https://beerasaservice.herokuapp.com/docs)
+
 ## Installation
 
 ```bash
@@ -26,10 +30,6 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
-
-## Swagger / Documentation
-
-- TODO
 
 ## Test
 
