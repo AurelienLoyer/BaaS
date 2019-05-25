@@ -26,9 +26,13 @@
   "dependencies": {
     "@nestjs/common": "^6.0.2",
     "@nestjs/core": "^6.0.2",
+    "@nestjs/jwt": "^6.0.0",
+    "@nestjs/passport": "^6.0.0",
     "@nestjs/platform-express": "^6.0.0",
     "@nestjs/swagger": "^3.0.2",
     "hbs": "^4.0.3",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^2.6.2",
     "rxjs": "^6.4.0",
