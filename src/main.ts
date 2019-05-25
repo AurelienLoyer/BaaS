@@ -19,7 +19,7 @@ async function bootstrap() {
     .setTitle('🍺 Beer as a Service')
     .setDescription('An API to retrieve beers informations')
     .setVersion('1.0')
-    // .setBasePath('api/v1')
+    .addBearerAuth('Authorization', 'header')
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
