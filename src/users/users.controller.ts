@@ -16,24 +16,17 @@ export class UsersController {
     }
 
     @Post('login')
-    async createToken(@Body() userDto: UserDto): Promise<any> {
-        const userToken = await this.usersService.createToken(userDto);
+    async login(@Body() userDto: UserDto): Promise<any> {
+        const userToken = await this.usersService.login(userDto);
         if (userToken === undefined) {
             throw new HttpException(`User not found`, HttpStatus.NOT_FOUND);
         }
         return userToken;
     }
 
-    @Get('cart')
-    @ApiBearerAuth()
-    @UseGuards(AuthGuard())
-    getCart(@Req() req) {
-        return req.user.cart;
-    }
-    
     @Get('info')
     @ApiBearerAuth()
-    @UseGuards(AuthGuard())
+    @UseGuards(AuthGuard('jwt'))
     getUserInfo(@Req() req) {
         return {
             ...req.user,
