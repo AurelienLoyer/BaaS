@@ -4,20 +4,20 @@
         "username": "Aurel",
         "email": "aurelien@loyer.fr",
         "password": "beer",
-        "cart": []
+        "cart": {}
     },
     {
         "id": 2,
         "username": "Manu",
         "email": "emmanuel@demey.fr",
         "password": "beer",
-        "cart": []
+        "cart": {}
     },
     {
         "id": 3,
         "username": "John",
         "email": "john@snow.fr",
         "password": "beer",
-        "cart": []
+        "cart": {}
     }
 ]

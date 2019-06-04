@@ -1,18 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { Beer } from './entities/beer.entity';
 
-import beers from './../../static/data/beers.json';
+import beersJson from './../../static/data/beers.json';
 
 @Injectable()
 export class BeersService {
 
-    constructor() {}
+    beers: Beer[] = beersJson;
+
+    constructor() { }
 
     findOneById(id: any): Beer {
-        return beers.find(beer => beer.id === id);
+        return this.beers.find(beer => beer.id === id);
     }
 
     findAll(): Beer[] {
-        return beers;
+        return this.beers;
+    }
+
+    isStockAvailable(id) {
+        return this.beers.find(beer => beer.id === id && beer.stock > 0);
+    }
+
+    decreaseStock(id) {
+        const beerIndex = this.beers.findIndex((beer: Beer) => beer.id === id);
+
+        if(beerIndex > -1) {
+            this.beers[beerIndex].stock = this.beers[beerIndex].stock -1;
+            return this.beers[beerIndex];
+        }else {
+            return false;
+        }
     }
 }
