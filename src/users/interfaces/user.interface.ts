@@ -1,4 +1,4 @@
-import { Cart } from "src/carts/entities/cart.entity";
+import { Cart } from "./../../carts/entities/cart.entity";
 
 export interface User {
     id: number;

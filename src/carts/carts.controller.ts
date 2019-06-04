@@ -2,8 +2,7 @@ import { Controller, Delete, Get, Put, Post, Param, ParseIntPipe, UseGuards, Req
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { Cart } from './entities/cart.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { Beer } from 'src/beers/entities/beer.entity';
-import { BeersService } from 'src/beers/beers.service';
+import { BeersService } from './../beers/beers.service';
 
 @Controller('api/v1/cart')
 @ApiUseTags('cart')
