@@ -5,7 +5,10 @@ import { BeersModule } from '../../src/beers/beers.module';
 import { BeersService } from '../../src/beers/beers.service';
 
 describe('Beers', () => {
-  const beersService = { findAll: () => [{id: 1, label: 'test'}] };
+  const beersService = {
+    findAll: () => [{ id: 1, label: 'test' }],
+    findOneById: () => [{ id: 1 }],
+  };
 
   let app: INestApplication;
 
@@ -28,6 +31,12 @@ describe('Beers', () => {
       .expect(beersService.findAll());
   });
 
+  it(`/GET beer`, () => {
+    return request(app.getHttpServer())
+      .get('/api/v1/beers/1')
+      .expect(200)
+      .expect(beersService.findOneById());
+  });
   afterAll(async () => {
     await app.close();
   });
