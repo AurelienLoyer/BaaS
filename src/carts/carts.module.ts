@@ -5,6 +5,6 @@ import { BeersModule } from './../beers/beers.module';
 @Module({
   controllers: [CartsController],
   imports: [BeersModule],
-  providers:[],
+  providers: [],
 })
 export class CartsModule {}

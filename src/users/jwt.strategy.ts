@@ -6,18 +6,18 @@ import { JwtPayload } from './interfaces/jwt-payload.interface';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-    constructor(private readonly usersService: UsersService) {
-        super({
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            secretOrKey: 'secretBeer',
-        });
-    }
+  constructor(private readonly usersService: UsersService) {
+    super({
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: 'secretBeer',
+    });
+  }
 
-    async validate(payload: JwtPayload) {
-        const user = await this.usersService.validateUser(payload);
-        if (!user) {
-            throw new UnauthorizedException();
-        }
-        return user;
+  async validate(payload: JwtPayload) {
+    const user = await this.usersService.validateUser(payload);
+    if (!user) {
+      throw new UnauthorizedException('The user is unauthorized');
     }
+    return user;
+  }
 }

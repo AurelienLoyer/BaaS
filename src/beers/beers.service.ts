@@ -7,7 +7,7 @@ import beersJson from './../../static/data/beers.json';
 export class BeersService {
   beers: Beer[] = beersJson;
 
-  findOneById(id: any): Beer {
+  findOneById(id: number): Beer {
     return this.beers.find(beer => beer.id === id);
   }
 
@@ -15,11 +15,11 @@ export class BeersService {
     return this.beers;
   }
 
-  isStockAvailable(id) {
+  isStockAvailable(id: number): Beer {
     return this.beers.find(beer => beer.id === id && beer.stock > 0);
   }
 
-  decreaseStock(id) {
+  decreaseStock(id: number): Beer | boolean {
     const beerIndex = this.beers.findIndex((beer: Beer) => beer.id === id);
 
     if (beerIndex > -1) {
