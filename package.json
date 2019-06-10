@@ -25,7 +25,7 @@
     "node": "9.11.2"
   },
   "dependencies": {
-    "@nestjs/common": "^6.3.1",
+    "@nestjs/common": "^6.0.2",
     "@nestjs/core": "^6.0.2",
     "@nestjs/jwt": "^6.0.0",
     "@nestjs/passport": "^6.0.0",
