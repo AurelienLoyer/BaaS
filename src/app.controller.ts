@@ -11,7 +11,7 @@ export class AppController {
     }
 
     @Get('static/img/:imageName')
-    test(@Param('imageName') imageName, @Res() res) {
+    image(@Param('imageName') imageName, @Res() res) {
         return res.sendFile(`img/${imageName}`, { root: 'static' });
     }
 }

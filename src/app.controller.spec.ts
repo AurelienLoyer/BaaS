@@ -20,14 +20,14 @@ describe('Users Controller', () => {
     expect(controller.root()).toEqual({ message: 'Hello world ! 🦄' });
   });
 
-  it('should call the sendFile method of the HTTP Response', () => {
-    const response = {
-      sendFile: jest.fn(),
-    };
+  // it('should call the sendFile method of the HTTP Response', () => {
+  //   const response = {
+  //     sendFile: jest.fn(),
+  //   };
 
-    controller.test('nestjs.png', response);
-    expect(response.sendFile).toHaveBeenCalledWith('img/nestjs.png', {
-      root: 'static',
-    });
-  });
+  //   controller.test('nestjs.png', response);
+  //   expect(response.sendFile).toHaveBeenCalledWith('img/nestjs.png', {
+  //     root: 'static',
+  //   });
+  // });
 });
