@@ -1,0 +1,14 @@
+{
+    "name": "BaaS",
+    "description": "🍺🍻 Beer as a Service - A Nest app serving fresh Beer ",
+    "repository": "https://github.com/T3kstiil3/BaaS",
+    "logo": "https://raw.githubusercontent.com/T3kstiil3/BaaS/master/static/img/paixdieu.jpg",
+    "keywords": [
+        "baas",
+        "node",
+        "nestjs",
+        "static",
+        "beer",
+        "🍺"
+    ]
+}
