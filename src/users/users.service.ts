@@ -3,7 +3,6 @@ import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 
 import usersJson from './../../static/data/users.json';
-import { UserDto } from './user.dto';
 import { User } from './interfaces/user.interface';
 @Injectable()
 export class UsersService {
