@@ -5,7 +5,6 @@ import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { JwtStrategy } from './jwt.strategy';
 
-
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
@@ -16,12 +15,7 @@ import { JwtStrategy } from './jwt.strategy';
       },
     }),
   ],
-  providers: [
-    UsersService,
-    JwtStrategy
-  ],
-  controllers: [
-    UsersController,
-  ]
+  providers: [UsersService, JwtStrategy],
+  controllers: [UsersController],
 })
-export class UsersModule { }
+export class UsersModule {}

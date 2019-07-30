@@ -5,10 +5,7 @@ import { UuidValidator } from './validators/id.validator';
 
 @Module({
   controllers: [BeersController],
-  providers: [
-    UuidValidator,
-    BeersService, 
-  ],
-  exports: [BeersService]
+  providers: [UuidValidator, BeersService],
+  exports: [BeersService],
 })
 export class BeersModule {}

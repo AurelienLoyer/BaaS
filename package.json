@@ -8,7 +8,7 @@
     "dev": "npm run start:dev",
     "postinstall": "tsc",
     "build": "tsc -p tsconfig.build.json",
-    "format": "prettier --write \"src/**/*.ts\"",
+    "format": "prettier --write \"{src/**/,test/**/ }*.{ts,css,scss,html,json}\"",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
     "start:dev": "nodemon",
     "start:debug": "nodemon --config nodemon-debug.json",
