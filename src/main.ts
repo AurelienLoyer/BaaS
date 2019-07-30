@@ -6,6 +6,7 @@ import { join } from 'path';
 import { AppModule } from './app.module';
 import { ValidationPipe, Logger } from '@nestjs/common';
 import { useContainer } from 'class-validator';
+import { ConfigService } from './config.service';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -34,11 +35,11 @@ async function bootstrap() {
   // https://docs.nestjs.com/techniques/validation#auto-validation
   app.useGlobalPipes(new ValidationPipe());
 
-  await app.listen(process.env.PORT || 3000);
+  const configService = app.get(ConfigService);
+  const port = configService.get('PORT') || process.env.PORT || 3000;
+  await app.listen(port);
 
-  console.log(
-    `App ready to serve fresh beer 🍺  on port ${process.env.PORT || 3000}`,
-  );
+  console.log(`App ready to serve fresh beer 🍺  on port ${port}`);
 }
 
 bootstrap();
