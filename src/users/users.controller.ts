@@ -7,6 +7,7 @@ import {
   Req,
   HttpException,
   HttpStatus,
+  Logger,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
@@ -16,15 +17,21 @@ import { UserDto } from './user.dto';
 @Controller('api/v1/users')
 @ApiUseTags('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly logger: Logger,
+  ) {}
 
   @Get()
   findAll(): any[] {
+    this.logger.log(`Calling GET /api/v1/users`);
     return this.usersService.getAll();
   }
 
   @Post('login')
   async login(@Body() userDto: UserDto): Promise<any> {
+    this.logger.log(`Calling POST /api/v1/users/login`);
+
     const userToken = await this.usersService.login(userDto);
     if (userToken === undefined) {
       throw new HttpException(`User not found`, HttpStatus.NOT_FOUND);
@@ -36,6 +43,8 @@ export class UsersController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   getUserInfo(@Req() req) {
+    this.logger.log(`Calling GET /api/v1/info`);
+
     return {
       ...req.user,
       password: '******',

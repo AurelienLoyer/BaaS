@@ -9,6 +9,7 @@ import {
   Body,
   HttpException,
   HttpStatus,
+  Logger,
 } from '@nestjs/common';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { Cart } from './entities/cart.entity';
@@ -18,12 +19,17 @@ import { BeersService } from './../beers/beers.service';
 @Controller('api/v1/cart')
 @ApiUseTags('cart')
 export class CartsController {
-  constructor(private readonly beersService: BeersService) {}
+  constructor(
+    private readonly beersService: BeersService,
+    private readonly logger: Logger,
+  ) {}
 
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @Put()
   create(@Req() req): Cart {
+    this.logger.log(`Calling PUT /api/v1/cart`);
+
     const newCart: Cart = {
       id: req.user.id,
       creationDate: new Date(),
@@ -39,6 +45,7 @@ export class CartsController {
   @UseGuards(AuthGuard('jwt'))
   @Get()
   findOne(@Req() req): Cart {
+    this.logger.log(`Calling GET /api/v1/cart`);
     return req.user.cart;
   }
 
@@ -46,6 +53,7 @@ export class CartsController {
   @UseGuards(AuthGuard('jwt'))
   @Post()
   update(@Req() req, @Body() beers: number[]): Cart {
+    this.logger.log(`Calling POST /api/v1/cart`);
     if (!req.user.cart.beers) {
       throw new HttpException(
         `Cart not found, first create an empty cart 🛒 (PUT)`,
@@ -74,6 +82,8 @@ export class CartsController {
   @UseGuards(AuthGuard('jwt'))
   @Delete()
   delete(@Req() req): Cart {
+    this.logger.log(`Calling DELETE /api/v1/cart`);
+
     req.user.cart = {};
     return req.user.cart;
   }

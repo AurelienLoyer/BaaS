@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Logger } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { UsersService } from './users.service';
@@ -15,7 +15,11 @@ import { JwtStrategy } from './jwt.strategy';
       },
     }),
   ],
-  providers: [UsersService, JwtStrategy],
+  providers: [
+    UsersService,
+    JwtStrategy,
+    { provide: Logger, useFactory: () => new Logger('UserModule') },
+  ],
   controllers: [UsersController],
 })
 export class UsersModule {}

@@ -3,6 +3,7 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { Logger } from '@nestjs/common';
 
 describe('Users Controller', () => {
   let controller: UsersController;
@@ -10,6 +11,7 @@ describe('Users Controller', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
+        Logger,
         {
           provide: UsersService,
           useValue: {

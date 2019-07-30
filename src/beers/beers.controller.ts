@@ -10,6 +10,7 @@ import {
   Post,
   Body,
   HttpCode,
+  Logger,
 } from '@nestjs/common';
 import { ApiUseTags } from '@nestjs/swagger';
 import { Beer } from './entities/beer.entity';
@@ -19,15 +20,22 @@ import { BeerDto } from './beer.dto';
 @Controller('api/v1/beers')
 @ApiUseTags('beers')
 export class BeersController {
-  constructor(private readonly beersService: BeersService) {}
+  constructor(
+    private readonly beersService: BeersService,
+    private readonly logger: Logger,
+  ) {}
 
   @Get()
   findAll(): any[] {
+    this.logger.log(`Calling GET /api/v1/beers`);
+
     return this.beersService.findAll();
   }
 
   @Put()
   create(@Body() beer: BeerDto) {
+    this.logger.log(`Calling PUT /api/v1/beers`);
+
     if (this.beersService.beers.length > 5) {
       throw new HttpException(
         `Too much beers added !`,
@@ -40,6 +48,8 @@ export class BeersController {
 
   @Get(':id')
   findOne(@Param('id', new ParseIntPipe()) id: number): Beer {
+    this.logger.log(`Calling GET /api/v1/beers/${id}`);
+
     const beer: Beer = this.beersService.findOneById(id);
     if (beer === undefined) {
       throw new HttpException(
@@ -52,7 +62,9 @@ export class BeersController {
 
   @Post()
   update(@Body() beer: BeerDto) {
-    let findBeer: Beer = this.beersService.findOneById(beer.id);
+    this.logger.log(`Calling POST /api/v1/beers`);
+
+    const findBeer: Beer = this.beersService.findOneById(beer.id);
     if (findBeer === undefined) {
       throw new HttpException(
         `Cannot find a beer 🍺 with id ${beer.id}`,
@@ -65,6 +77,8 @@ export class BeersController {
   @Delete(':id')
   @HttpCode(204)
   delete(@Param('id', new ParseIntPipe()) id: number) {
+    this.logger.log(`Calling DELETE /api/v1/beers/${id}`);
+
     return 'OK';
   }
 }

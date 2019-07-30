@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BeersController } from './beers.controller';
 import { BeersService } from './beers.service';
 import { Beer } from './entities/beer.entity';
+import { Logger } from '@nestjs/common';
 
 class MockBeerService {
   beers: Beer[] = [{ id: 1 }, { id: 2 }];
@@ -18,7 +19,7 @@ describe('Beers Controller', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [BeersController],
-      providers: [{ provide: BeersService, useClass: MockBeerService }],
+      providers: [{ provide: BeersService, useClass: MockBeerService }, Logger],
     }).compile();
 
     controller = module.get<BeersController>(BeersController);

@@ -1,11 +1,15 @@
-import { Module } from '@nestjs/common';
+import { Module, Logger } from '@nestjs/common';
 import { BeersController } from './beers.controller';
 import { BeersService } from './beers.service';
 import { UuidValidator } from './validators/id.validator';
 
 @Module({
   controllers: [BeersController],
-  providers: [UuidValidator, BeersService],
+  providers: [
+    UuidValidator,
+    BeersService,
+    { provide: Logger, useFactory: () => new Logger('BeersModule') },
+  ],
   exports: [BeersService],
 })
 export class BeersModule {}

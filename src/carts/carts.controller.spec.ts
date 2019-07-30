@@ -3,7 +3,7 @@ import { CartsController } from './carts.controller';
 import { BeersModule } from './../beers/beers.module';
 import { Beer } from './../beers/entities/beer.entity';
 import { BeersService } from './../beers/beers.service';
-import { HttpException } from '@nestjs/common';
+import { HttpException, Logger } from '@nestjs/common';
 
 class MockBeerService {
   beers: Beer[] = [{ id: 1 }, { id: 2 }];
@@ -28,7 +28,7 @@ describe('Carts Controller', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [CartsController],
-      providers: [{ provide: BeersService, useClass: MockBeerService }],
+      providers: [{ provide: BeersService, useClass: MockBeerService }, Logger],
     }).compile();
 
     controller = module.get<CartsController>(CartsController);
