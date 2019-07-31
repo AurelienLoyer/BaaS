@@ -7,11 +7,18 @@ import { AppModule } from './app.module';
 import { ValidationPipe, Logger } from '@nestjs/common';
 import { useContainer } from 'class-validator';
 import { ConfigService } from './config.service';
+import { RequestInterceptor } from './request.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.enableCors();
+  const configService = app.get(ConfigService);
+
+  const debug = configService.get('DEBUG') || false;
+  if (debug) {
+    app.useGlobalInterceptors(new RequestInterceptor());
+  }
   // app.setGlobalPrefix('api/v1');
 
   app.useStaticAssets(join(__dirname, '..', 'static'));
@@ -35,7 +42,6 @@ async function bootstrap() {
   // https://docs.nestjs.com/techniques/validation#auto-validation
   app.useGlobalPipes(new ValidationPipe());
 
-  const configService = app.get(ConfigService);
   const port = configService.get('PORT') || process.env.PORT || 3000;
   await app.listen(port);
 
