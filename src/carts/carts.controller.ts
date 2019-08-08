@@ -5,7 +5,6 @@ import {
   Put,
   Post,
   UseGuards,
-  Req,
   Body,
   HttpException,
   HttpStatus,
@@ -15,6 +14,7 @@ import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { Cart } from './entities/cart.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { BeersService } from './../beers/beers.service';
+import { User } from '../decorators/user';
 
 @Controller('api/v1/cart')
 @ApiUseTags('cart')
@@ -27,34 +27,34 @@ export class CartsController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @Put()
-  create(@Req() req): Cart {
+  create(@User() user): Cart {
     this.logger.log(`Calling PUT /api/v1/cart`);
 
     const newCart: Cart = {
-      id: req.user.id,
+      id: user.id,
       creationDate: new Date(),
       beers: [],
     };
 
-    req.user.cart = newCart;
+    user.cart = newCart;
 
-    return req.user.cart;
+    return user.cart;
   }
 
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @Get()
-  findOne(@Req() req): Cart {
+  findOne(@User() user): Cart {
     this.logger.log(`Calling GET /api/v1/cart`);
-    return req.user.cart;
+    return user.cart;
   }
 
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @Post()
-  update(@Req() req, @Body() beers: number[]): Cart {
+  update(@User() user, @Body() beers: number[]): Cart {
     this.logger.log(`Calling POST /api/v1/cart`);
-    if (!req.user.cart.beers) {
+    if (!user.cart.beers) {
       throw new HttpException(
         `Cart not found, first create an empty cart 🛒 (PUT)`,
         HttpStatus.NOT_FOUND,
@@ -64,7 +64,7 @@ export class CartsController {
     beers.forEach(beerId => {
       if (this.beersService.isStockAvailable(beerId)) {
         if (this.beersService.decreaseStock(beerId)) {
-          req.user.cart.beers.push(beerId);
+          user.cart.beers.push(beerId);
         } else {
           throw new HttpException(`Beer not found`, HttpStatus.NOT_FOUND);
         }
@@ -75,16 +75,16 @@ export class CartsController {
         );
       }
     });
-    return req.user.cart;
+    return user.cart;
   }
 
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @Delete()
-  delete(@Req() req): Cart {
+  delete(@User() user): Cart {
     this.logger.log(`Calling DELETE /api/v1/cart`);
 
-    req.user.cart = {};
-    return req.user.cart;
+    user.cart = {};
+    return user.cart;
   }
 }
