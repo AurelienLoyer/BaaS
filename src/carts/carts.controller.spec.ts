@@ -40,7 +40,7 @@ describe('Carts Controller', () => {
 
   describe('create', () => {
     it('should return the new cart of the user', () => {
-      const { creationDate, ...rest } = controller.create({ user: { id: 1 } });
+      const { creationDate, ...rest } = controller.create({ id: 1 });
       expect(rest).toEqual({ id: 1, beers: [] });
     });
   });
@@ -48,7 +48,7 @@ describe('Carts Controller', () => {
   describe('update', () => {
     it('should throw an error if the user does not a have a cart', () => {
       try {
-        controller.update({ user: { cart: {} } }, []);
+        controller.update({ cart: {} }, []);
       } catch (e) {
         expect(e.message).toEqual(
           'Cart not found, first create an empty cart 🛒 (PUT)',
@@ -57,24 +57,22 @@ describe('Carts Controller', () => {
     });
     it('should throw an error if the beer does not exist', () => {
       try {
-        controller.update({ user: { cart: { beers: [] } } }, [2]);
+        controller.update({ cart: { beers: [] } }, [2]);
       } catch (e) {
         expect(e.message).toEqual('Beer id 2 not available 😅');
       }
     });
 
     it('should add beers to the cart', () => {
-      expect(controller.update({ user: { cart: { beers: [] } } }, [1])).toEqual(
-        { beers: [1] },
-      );
+      expect(controller.update({ cart: { beers: [] } }, [1])).toEqual({
+        beers: [1],
+      });
     });
   });
 
   describe('findOne', () => {
     it('should return the cart of the user', () => {
-      expect(
-        controller.findOne({ user: { cart: { beers: [{ id: 1 }] } } }),
-      ).toEqual({
+      expect(controller.findOne({ cart: { beers: [{ id: 1 }] } })).toEqual({
         beers: [{ id: 1 }],
       });
     });
@@ -82,7 +80,7 @@ describe('Carts Controller', () => {
 
   describe('delete', () => {
     it('should return the reseted cart of the user', () => {
-      expect(controller.delete({ user: {} })).toEqual({});
+      expect(controller.delete({})).toEqual({});
     });
   });
 });
