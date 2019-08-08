@@ -13,6 +13,7 @@ import { UsersService } from './users.service';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { UserDto } from './user.dto';
+import { User } from '../decorators/user';
 
 @Controller('api/v1/users')
 @ApiUseTags('users')
@@ -42,11 +43,11 @@ export class UsersController {
   @Get('info')
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
-  getUserInfo(@Req() req) {
+  getUserInfo(@User() user) {
     this.logger.log(`Calling GET /api/v1/info`);
 
     return {
-      ...req.user,
+      ...user,
       password: '******',
     };
   }

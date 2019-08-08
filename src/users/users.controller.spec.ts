@@ -67,7 +67,7 @@ describe('Users Controller', () => {
 
   describe('getUserInfo', () => {
     it('should return the information of an user', () => {
-      expect(controller.getUserInfo({ user: { name: 'NestJS' } })).toEqual({
+      expect(controller.getUserInfo({ name: 'NestJS' })).toEqual({
         name: 'NestJS',
         password: '******',
       });
