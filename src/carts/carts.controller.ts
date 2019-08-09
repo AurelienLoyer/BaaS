@@ -10,7 +10,12 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
-import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiUseTags,
+  ApiBearerAuth,
+  ApiOperation,
+  ApiConsumes,
+} from '@nestjs/swagger';
 import { Cart } from './entities/cart.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { BeersService } from './../beers/beers.service';
@@ -27,6 +32,7 @@ export class CartsController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @Put()
+  @ApiOperation({ title: 'Create a basket for the user' })
   create(@User() user): Cart {
     this.logger.log(`Calling PUT /api/v1/cart`);
 
@@ -44,6 +50,7 @@ export class CartsController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @Get()
+  @ApiOperation({ title: 'Get the basket of the user' })
   findOne(@User() user): Cart {
     this.logger.log(`Calling GET /api/v1/cart`);
     return user.cart;
@@ -52,6 +59,7 @@ export class CartsController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @Post()
+  @ApiOperation({ title: 'Add an array of beerId to the basket of the user' })
   update(@User() user, @Body() beers: number[]): Cart {
     this.logger.log(`Calling POST /api/v1/cart`);
     if (!user.cart.beers) {
@@ -81,6 +89,7 @@ export class CartsController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @Delete()
+  @ApiOperation({ title: 'Reset the basket of the user' })
   delete(@User() user): Cart {
     this.logger.log(`Calling DELETE /api/v1/cart`);
 
