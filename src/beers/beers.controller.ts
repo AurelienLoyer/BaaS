@@ -26,7 +26,7 @@ export class BeersController {
   ) {}
 
   @Get()
-  findAll(): any[] {
+  findAll(): Beer[] {
     this.logger.log(`Calling GET /api/v1/beers`);
 
     return this.beersService.findAll();
