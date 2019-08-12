@@ -13,7 +13,7 @@ import {
   Logger,
   UseFilters,
 } from '@nestjs/common';
-import { ApiUseTags } from '@nestjs/swagger';
+import { ApiUseTags, ApiOperation } from '@nestjs/swagger';
 import { Beer } from './entities/beer.entity';
 import { BeersService } from './beers.service';
 import { BeerDto } from './beer.dto';
@@ -30,13 +30,15 @@ export class BeersController {
   ) {}
 
   @Get()
-  findAll(): Beer[] {
+  @ApiOperation({ title: 'Return all beers' })
+  findAll(): any[] {
     this.logger.log(`Calling GET /api/v1/beers`);
 
     return this.beersService.findAll();
   }
 
   @Put()
+  @ApiOperation({ title: 'Add a beer to the catalog' })
   create(@Body() beer: BeerDto) {
     this.logger.log(`Calling PUT /api/v1/beers`);
 
@@ -51,6 +53,7 @@ export class BeersController {
   }
 
   @Get(':id')
+  @ApiOperation({ title: 'Return a beer' })
   findOne(@Param('id', new ParseIntPipe()) id: number): Beer {
     this.logger.log(`Calling GET /api/v1/beers/${id}`);
 
@@ -62,6 +65,7 @@ export class BeersController {
   }
 
   @Post()
+  @ApiOperation({ title: 'Update a beer' })
   update(@Body() beer: BeerDto) {
     this.logger.log(`Calling POST /api/v1/beers`);
 
@@ -74,6 +78,7 @@ export class BeersController {
 
   @Delete(':id')
   @HttpCode(204)
+  @ApiOperation({ title: 'Delete a Beer' })
   delete(@Param('id', new ParseIntPipe()) id: number) {
     this.logger.log(`Calling DELETE /api/v1/beers/${id}`);
 
