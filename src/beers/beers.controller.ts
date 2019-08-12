@@ -11,14 +11,18 @@ import {
   Body,
   HttpCode,
   Logger,
+  UseFilters,
 } from '@nestjs/common';
 import { ApiUseTags, ApiOperation } from '@nestjs/swagger';
 import { Beer } from './entities/beer.entity';
 import { BeersService } from './beers.service';
 import { BeerDto } from './beer.dto';
+import { BeerUnavailableException } from './beers.exception';
+import { BeerExceptionFilter } from './beers.exception.filter';
 
 @Controller('api/v1/beers')
 @ApiUseTags('beers')
+@UseFilters(BeerExceptionFilter)
 export class BeersController {
   constructor(
     private readonly beersService: BeersService,
@@ -55,10 +59,7 @@ export class BeersController {
 
     const beer: Beer = this.beersService.findOneById(id);
     if (beer === undefined) {
-      throw new HttpException(
-        `Cannot find a beer 🍺 with id ${id}`,
-        HttpStatus.NOT_FOUND,
-      );
+      throw new BeerUnavailableException(id);
     }
     return beer;
   }
@@ -70,10 +71,7 @@ export class BeersController {
 
     const findBeer: Beer = this.beersService.findOneById(beer.id);
     if (findBeer === undefined) {
-      throw new HttpException(
-        `Cannot find a beer 🍺 with id ${beer.id}`,
-        HttpStatus.NOT_FOUND,
-      );
+      throw new BeerUnavailableException(beer.id);
     }
     return this.beersService.update(beer);
   }
