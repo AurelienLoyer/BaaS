@@ -26,12 +26,12 @@
     "node": "9.11.2"
   },
   "dependencies": {
-    "@nestjs/common": "^6.0.2",
+    "@nestjs/common": "^6.5.3",
     "@nestjs/core": "^6.0.2",
     "@nestjs/jwt": "^6.0.0",
     "@nestjs/passport": "^6.0.0",
     "@nestjs/platform-express": "^6.0.0",
-    "@nestjs/swagger": "^3.0.2",
+    "@nestjs/swagger": "^3.1.0",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.9.1",
     "dotenv": "^8.0.0",
