@@ -5,9 +5,17 @@ import { CartsModule } from './carts/carts.module';
 import { UsersModule } from './users/users.module';
 import { UuidValidator } from './beers/validators/id.validator';
 import { ConfigService } from './config.service';
+import { GraphQLModule } from '@nestjs/graphql';
 
 @Module({
-  imports: [BeersModule, CartsModule, UsersModule],
+  imports: [
+    BeersModule,
+    CartsModule,
+    UsersModule,
+    GraphQLModule.forRoot({
+      autoSchemaFile: 'schema.gql',
+    }),
+  ],
   controllers: [AppController],
   providers: [
     UuidValidator,
