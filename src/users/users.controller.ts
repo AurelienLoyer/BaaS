@@ -10,7 +10,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiUseTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { UserDto } from './user.dto';
 import { User } from '../decorators/user';
@@ -24,12 +24,14 @@ export class UsersController {
   ) {}
 
   @Get()
+  @ApiOperation({ title: 'Return all users' })
   findAll(): any[] {
     this.logger.log(`Calling GET /api/v1/users`);
     return this.usersService.getAll();
   }
 
   @Post('login')
+  @ApiOperation({ title: 'Login a user' })
   async login(@Body() userDto: UserDto): Promise<any> {
     this.logger.log(`Calling POST /api/v1/users/login`);
 
@@ -43,6 +45,7 @@ export class UsersController {
   @Get('info')
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ title: 'Return the info of the user' })
   getUserInfo(@User() user) {
     this.logger.log(`Calling GET /api/v1/info`);
 

@@ -55,6 +55,7 @@
     "@types/node": "^10.12.18",
     "@types/supertest": "^2.0.7",
     "codecov": "^3.5.0",
+    "husky": "^3.0.3",
     "jest": "^24.8.0",
     "nodemon": "^1.18.9",
     "prettier": "^1.15.3",
@@ -78,5 +79,10 @@
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test && npm run test:e2e"
+    }
   }
 }

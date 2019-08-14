@@ -11,8 +11,7 @@ import { Injectable } from '@nestjs/common';
 export class UuidValidator implements ValidatorConstraintInterface {
   constructor(private readonly beersService: BeersService) {}
 
-  validate(id: number, args: ValidationArguments) {
-    console.log(this);
+  validate(id: number, args?: ValidationArguments) {
     const isExistingId = this.beersService.beers.some(beer => beer.id === id);
     return !isExistingId;
   }
