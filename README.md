@@ -1,8 +1,8 @@
-# 🍺🍻 Beer as a Service 
+# 🍺🍻 Beer as a Service
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/T3kstiil3/BaaS) 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/T3kstiil3/BaaS)
 [![CircleCI](https://circleci.com/gh/T3kstiil3/BaaS.svg?style=svg)](https://circleci.com/gh/T3kstiil3/BaaS)
-
+[![codecov](https://codecov.io/gh/T3kstiil3/BaaS/branch/master/graph/badge.svg)](https://codecov.io/gh/T3kstiil3/BaaS)
 
 ## Description
 
