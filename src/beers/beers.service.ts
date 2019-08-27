@@ -19,7 +19,7 @@ export class BeersService {
     this.beers.push(beer);
   }
 
-  update(beerToUpdate) {
+  update(beerToUpdate): Beer {
     const beerIndex = this.beers.findIndex(
       (beer: Beer) => beer.id === beerToUpdate.id,
     );
