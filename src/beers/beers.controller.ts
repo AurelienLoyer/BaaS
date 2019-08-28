@@ -31,7 +31,7 @@ export class BeersController {
 
   @Get()
   @ApiOperation({ title: 'Return all beers' })
-  findAll(): any[] {
+  findAll(): Beer[] {
     this.logger.log(`Calling GET /api/v1/beers`);
 
     return this.beersService.findAll();
@@ -39,7 +39,7 @@ export class BeersController {
 
   @Put()
   @ApiOperation({ title: 'Add a beer to the catalog' })
-  create(@Body() beer: BeerDto) {
+  create(@Body() beer: BeerDto): BeerDto {
     this.logger.log(`Calling PUT /api/v1/beers`);
 
     if (this.beersService.beers.length > 5) {
@@ -66,7 +66,7 @@ export class BeersController {
 
   @Post()
   @ApiOperation({ title: 'Update a beer' })
-  update(@Body() beer: BeerDto) {
+  update(@Body() beer: BeerDto): Beer {
     this.logger.log(`Calling POST /api/v1/beers`);
 
     const findBeer: Beer = this.beersService.findOneById(beer.id);
@@ -79,7 +79,7 @@ export class BeersController {
   @Delete(':id')
   @HttpCode(204)
   @ApiOperation({ title: 'Delete a Beer' })
-  delete(@Param('id', new ParseIntPipe()) id: number) {
+  delete(@Param('id', new ParseIntPipe()) id: number): string {
     this.logger.log(`Calling DELETE /api/v1/beers/${id}`);
 
     return 'OK';
