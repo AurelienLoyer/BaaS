@@ -4,13 +4,15 @@ import {
   Put,
   Post,
   Param,
+  UseGuards,
   Body,
   Delete,
   HttpCode,
 } from '@nestjs/common';
 import { Beer } from '../beer';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { BeersService } from './beers.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('beers')
 export class BeersController {
@@ -22,6 +24,8 @@ export class BeersController {
     return this.beersService.getBeers();
   }
 
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @Put()
   @ApiOperation({ title: 'Add a beer to the catalog' })
   create(@Body() beer: Beer): Beer {
@@ -34,12 +38,16 @@ export class BeersController {
     return this.beersService.getBeerById(parseInt(id));
   }
 
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   @ApiOperation({ title: 'Update a beer' })
   update(@Param('id') id: string, @Body() beerToUpdate: Beer): Beer {
     return this.beersService.updateBeer(parseInt(id), beerToUpdate);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   @HttpCode(204)
   @ApiOperation({ title: 'Delete a Beer' })
