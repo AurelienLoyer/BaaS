@@ -1,70 +1,46 @@
 {
   "name": "baas",
   "version": "0.0.1",
-  "description": "🍺🍻 Beer as a Service - A Nest app serving fresh Beer ",
+  "description": "",
   "author": "",
   "license": "MIT",
   "scripts": {
-    "dev": "npm run start:dev",
-    "postinstall": "tsc",
-    "build": "tsc -p tsconfig.build.json",
-    "format": "prettier --write \"{src/**/,test/**/ }*.{ts,css,scss,html,json}\"",
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "format": "prettier --write \"src/**/*.ts\"",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
-    "start:dev": "nodemon",
-    "start:debug": "nodemon --config nodemon-debug.json",
-    "start:prod": "node dist/src/main.js",
-    "prestart:prod": "rimraf dist && npm run build",
+    "start:dev": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/main.js\"",
+    "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/main.js\"",
+    "start:prod": "node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "test": "jest --coverage",
-    "test:watch": "jest --coverage --watch",
-    "test:cov": "jest --coverage && open ./coverage/lcov-report/index.html",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "uploadcov": "./node_modules/.bin/codecov"
-  },
-  "engines": {
-    "node": "9.11.2"
+    "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "6.5.3",
-    "@nestjs/core": "^6.4.2",
-    "@nestjs/graphql": "^6.4.2",
-    "@nestjs/jwt": "6.1.1",
-    "@nestjs/passport": "6.1.0",
-    "@nestjs/platform-express": "6.5.3",
-    "@nestjs/swagger": "3.1.0",
-    "apollo-server-express": "^2.8.1",
-    "class-transformer": "^0.2.3",
-    "class-validator": "^0.9.1",
-    "dotenv": "^8.0.0",
-    "graphql": "^14.4.2",
-    "hbs": "^4.0.4",
-    "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0",
-    "reflect-metadata": "^0.1.13",
+    "@nestjs/common": "^6.0.0",
+    "@nestjs/core": "^6.0.0",
+    "@nestjs/platform-express": "^6.0.0",
+    "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
-    "rxjs": "^6.4.0",
-    "swagger-ui-express": "^4.0.2",
-    "type-graphql": "^0.17.4"
+    "rxjs": "^6.3.3"
   },
   "devDependencies": {
-    "@nestjs/testing": "6.5.3",
-    "@types/dotenv": "^6.1.1",
-    "@types/express": "^4.16.0",
-    "@types/jest": "^23.3.13",
-    "@types/node": "^10.12.18",
-    "@types/supertest": "2.0.8",
-    "codecov": "^3.5.0",
-    "husky": "^3.0.3",
-    "jest": "24.9.0",
-    "nodemon": "^1.18.9",
-    "prettier": "^1.15.3",
+    "@nestjs/testing": "^6.0.0",
+    "@types/express": "4.16.1",
+    "@types/jest": "24.0.11",
+    "@types/node": "11.13.4",
+    "@types/supertest": "2.0.7",
+    "jest": "24.7.1",
+    "prettier": "1.17.0",
     "supertest": "4.0.2",
     "ts-jest": "24.0.2",
-    "ts-node": "^7.0.1",
-    "tsconfig-paths": "^3.7.0",
-    "tslint": "5.12.1",
-    "typescript": "^3.2.4"
+    "ts-node": "8.1.0",
+    "tsc-watch": "2.2.1",
+    "tsconfig-paths": "3.8.0",
+    "tslint": "5.16.0",
+    "typescript": "3.4.3"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -79,10 +55,5 @@
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm test && npm run test:e2e"
-    }
   }
 }

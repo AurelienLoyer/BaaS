@@ -1,35 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-import { Logger } from '@nestjs/common';
+import { AppService } from './app.service';
 
-describe('Users Controller', () => {
-  let controller: AppController;
+describe('AppController', () => {
+  let appController: AppController;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [Logger],
+      providers: [AppService],
     }).compile();
 
-    controller = module.get<AppController>(AppController);
+    appController = app.get<AppController>(AppController);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  describe('root', () => {
+    it('should return "Hello World!"', () => {
+      expect(appController.getHello()).toBe('Hello World!');
+    });
   });
-
-  it('should return hello world', () => {
-    expect(controller.root()).toEqual({ message: 'Hello world ! 🦄' });
-  });
-
-  // it('should call the sendFile method of the HTTP Response', () => {
-  //   const response = {
-  //     sendFile: jest.fn(),
-  //   };
-
-  //   controller.test('nestjs.png', response);
-  //   expect(response.sendFile).toHaveBeenCalledWith('img/nestjs.png', {
-  //     root: 'static',
-  //   });
-  // });
 });

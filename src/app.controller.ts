@@ -1,29 +1,12 @@
-import {
-  Get,
-  Controller,
-  Render,
-  Param,
-  Res,
-  LoggerService,
-  Logger,
-} from '@nestjs/common';
-import { ApiExcludeEndpoint } from '@nestjs/swagger';
+import { Controller, Get } from '@nestjs/common';
+import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly logger: Logger) {}
+  constructor(private readonly appService: AppService) {}
 
   @Get()
-  @Render('index')
-  @ApiExcludeEndpoint()
-  root() {
-    this.logger.log(`Calling /`);
-    return { message: 'Hello world ! 🦄' };
-  }
-
-  @Get('static/img/:imageName')
-  image(@Param('imageName') imageName, @Res() res) {
-    this.logger.log(`Calling /static/img/${imageName}`);
-    return res.sendFile(`img/${imageName}`, { root: 'static' });
+  getHello(): string {
+    return this.appService.getHello();
   }
 }

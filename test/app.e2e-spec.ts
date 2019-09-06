@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import request from 'supertest';
+import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
-import { ConfigService } from 'src/config.service';
 
 describe('AppController (e2e)', () => {
   let app;
@@ -12,13 +11,13 @@ describe('AppController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    app.setViewEngine('hbs');
     await app.init();
   });
 
   it('/ (GET)', () => {
     return request(app.getHttpServer())
       .get('/')
-      .expect(200);
+      .expect(200)
+      .expect('Hello World!');
   });
 });
