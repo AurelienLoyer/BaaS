@@ -1,4 +1,4 @@
-import { Beer } from './../../beers/entities/beer.entity';
+import { Beer } from "../../beers/beer.dto";
 
 export interface Cart {
   id: number;

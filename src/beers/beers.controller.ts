@@ -12,13 +12,14 @@ import {
   HttpCode,
   Logger,
   UseFilters,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiUseTags, ApiOperation } from '@nestjs/swagger';
-import { Beer } from './entities/beer.entity';
+import { ApiUseTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { BeersService } from './beers.service';
-import { BeerDto } from './beer.dto';
+import { Beer } from './beer.dto';
 import { BeerUnavailableException } from './beers.exception';
 import { BeerExceptionFilter } from './beers.exception.filter';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('api/v1/beers')
 @ApiUseTags('beers')
@@ -38,8 +39,10 @@ export class BeersController {
   }
 
   @Put()
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ title: 'Add a beer to the catalog' })
-  create(@Body() beer: BeerDto): BeerDto {
+  create(@Body() beer: Beer): Beer {
     this.logger.log(`Calling PUT /api/v1/beers`);
 
     if (this.beersService.beers.length > 5) {
@@ -65,11 +68,13 @@ export class BeersController {
   }
 
   @Post()
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ title: 'Update a beer' })
-  update(@Body() beer: BeerDto): Beer {
+  update(@Param('id', new ParseIntPipe()) id: number, @Body() beer: Beer): Beer {
     this.logger.log(`Calling POST /api/v1/beers`);
 
-    const findBeer: Beer = this.beersService.findOneById(beer.id);
+    const findBeer: Beer = this.beersService.findOneById(id);
     if (findBeer === undefined) {
       throw new BeerUnavailableException(beer.id);
     }
@@ -77,11 +82,12 @@ export class BeersController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @HttpCode(204)
   @ApiOperation({ title: 'Delete a Beer' })
   delete(@Param('id', new ParseIntPipe()) id: number): string {
     this.logger.log(`Calling DELETE /api/v1/beers/${id}`);
-
-    return 'OK';
+    return this.beersService.delete(id);
   }
 }

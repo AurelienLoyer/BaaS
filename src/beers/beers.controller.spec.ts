@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BeersController } from './beers.controller';
 import { BeersService } from './beers.service';
-import { Beer } from './entities/beer.entity';
 import { Logger } from '@nestjs/common';
+import { Beer } from './beer.dto';
 
 class MockBeerService {
   beers: Beer[] = [{ id: 1 }, { id: 2 }];

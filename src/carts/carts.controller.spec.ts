@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CartsController } from './carts.controller';
 import { BeersModule } from './../beers/beers.module';
-import { Beer } from './../beers/entities/beer.entity';
 import { BeersService } from './../beers/beers.service';
 import { HttpException, Logger } from '@nestjs/common';
+import { Beer } from '../beers/beer.dto';
 
 class MockBeerService {
   beers: Beer[] = [{ id: 1 }, { id: 2 }];

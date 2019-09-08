@@ -35,8 +35,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
 
-  // class-validator inject nest service
-  useContainer(app, { fallbackOnErrors: true });
 
   // add auto validation on all application
   // https://docs.nestjs.com/techniques/validation#auto-validation

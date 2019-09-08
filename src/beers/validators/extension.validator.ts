@@ -5,7 +5,6 @@ import {
 } from 'class-validator';
 import { Injectable } from '@nestjs/common';
 
-@Injectable()
 @ValidatorConstraint({ name: 'extensionValidator', async: false })
 export class ExtensionValidator implements ValidatorConstraintInterface {
   validate(filename: string, args?: ValidationArguments) {
