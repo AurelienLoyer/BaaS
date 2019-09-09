@@ -13,6 +13,7 @@ import {
   Logger,
   UseFilters,
   UseGuards,
+  Optional,
 } from '@nestjs/common';
 import { ApiUseTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { BeersService } from './beers.service';
@@ -27,13 +28,13 @@ import { AuthGuard } from '@nestjs/passport';
 export class BeersController {
   constructor(
     private readonly beersService: BeersService,
-    private readonly logger: Logger,
+    @Optional() private readonly logger: Logger,
   ) {}
 
   @Get()
   @ApiOperation({ title: 'Return all beers' })
   findAll(): Beer[] {
-    this.logger.log(`Calling GET /api/v1/beers`);
+    this.logger && this.logger.log(`Calling GET /api/v1/beers`);
 
     return this.beersService.findAll();
   }
@@ -43,7 +44,7 @@ export class BeersController {
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ title: 'Add a beer to the catalog' })
   create(@Body() beer: Beer): Beer {
-    this.logger.log(`Calling PUT /api/v1/beers`);
+    this.logger && this.logger.log(`Calling PUT /api/v1/beers`);
 
     if (this.beersService.beers.length > 5) {
       throw new HttpException(
@@ -58,7 +59,7 @@ export class BeersController {
   @Get(':id')
   @ApiOperation({ title: 'Return a beer' })
   findOne(@Param('id', new ParseIntPipe()) id: number): Beer {
-    this.logger.log(`Calling GET /api/v1/beers/${id}`);
+    this.logger && this.logger.log(`Calling GET /api/v1/beers/${id}`);
 
     const beer: Beer = this.beersService.findOneById(id);
     if (beer === undefined) {
@@ -71,8 +72,11 @@ export class BeersController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ title: 'Update a beer' })
-  update(@Param('id', new ParseIntPipe()) id: number, @Body() beer: Beer): Beer {
-    this.logger.log(`Calling POST /api/v1/beers`);
+  update(
+    @Param('id', new ParseIntPipe()) id: number,
+    @Body() beer: Beer,
+  ): Beer {
+    this.logger && this.logger.log(`Calling POST /api/v1/beers`);
 
     const findBeer: Beer = this.beersService.findOneById(id);
     if (findBeer === undefined) {
@@ -87,7 +91,7 @@ export class BeersController {
   @HttpCode(204)
   @ApiOperation({ title: 'Delete a Beer' })
   delete(@Param('id', new ParseIntPipe()) id: number): string {
-    this.logger.log(`Calling DELETE /api/v1/beers/${id}`);
+    this.logger && this.logger.log(`Calling DELETE /api/v1/beers/${id}`);
     return this.beersService.delete(id);
   }
 }
