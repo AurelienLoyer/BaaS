@@ -8,6 +8,7 @@ import {
   Length,
   Validate,
 } from 'class-validator';
+import { ExtensionValidator } from './validators/extension.validator';
 
 export class Beer {
   @IsNumber()
@@ -19,17 +20,18 @@ export class Beer {
   readonly label?: string;
 
   @IsString()
+  @Length(10, 80)
   @ApiModelProperty({
     example:
       'India pale ale is a hoppy beer style within the broader category of pale ale',
   })
   readonly description?: string;
 
-  @IsString()
+  @Validate(ExtensionValidator)
   @ApiModelProperty({ example: '' })
   readonly image?: string;
 
-  @IsInt()
+  @IsNumber()
   @Min(0)
   @Max(100)
   @ApiModelProperty({ example: 15.0 })
