@@ -2,10 +2,10 @@ import { ApiModelProperty } from '@nestjs/swagger';
 import {
   IsString,
   IsInt,
-  IsNumber,
   Min,
   Max,
   Length,
+  IsNumber,
   Validate,
 } from 'class-validator';
 import { ExtensionValidator } from './validators/extension.validator';
@@ -36,7 +36,7 @@ export class Beer {
   @Field()
   readonly image?: string;
 
-  @IsInt()
+  @IsNumber()
   @Min(0)
   @Max(100)
   @ApiModelProperty({ example: 15.0 })
