@@ -50,8 +50,8 @@ $ npm run test:cov
 
 ## Stay in touch
 
-- Author - [Aurelien Loyer](https://aurelien-loyer.fr)
-- Twitter - [@AurelienLoyer](https://twitter.com/AurelienLoyer)
+- Author - [Aurelien Loyer](https://aurelien-loyer.fr) / [Emmanuel Demey](https://github.com/EmmanuelDemey)
+- Twitter - [@AurelienLoyer](https://twitter.com/AurelienLoyer) /  [@EmmanuelDemey](https://twitter.com/EmmanuelDemey)
 
 ## License
 
