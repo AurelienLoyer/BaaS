@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Beer } from './entities/beer.entity';
 
 import beersJson from './../../static/data/beers.json';
+import { Beer } from './beer.dto.js';
 
 @Injectable()
 export class BeersService {
@@ -40,5 +40,10 @@ export class BeersService {
     } else {
       return false;
     }
+  }
+
+  delete(id: number): string {
+    this.beers = this.beers.filter(beer => beer.id !== id);
+    return 'OK';
   }
 }

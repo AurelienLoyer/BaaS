@@ -2,19 +2,17 @@ import { ApiModelProperty } from '@nestjs/swagger';
 import {
   IsString,
   IsInt,
-  IsNumber,
   Min,
   Max,
   Length,
+  IsNumber,
   Validate,
 } from 'class-validator';
-import { UuidValidator } from './validators/id.validator';
 import { ExtensionValidator } from './validators/extension.validator';
 import { ObjectType, Field, Int } from 'type-graphql';
 @ObjectType()
-export class BeerDto {
+export class Beer {
   @IsNumber()
-  @Validate(UuidValidator)
   @ApiModelProperty({ example: 12 })
   @Field(() => Int)
   readonly id: number;
@@ -38,7 +36,7 @@ export class BeerDto {
   @Field()
   readonly image?: string;
 
-  @IsInt()
+  @IsNumber()
   @Min(0)
   @Max(100)
   @ApiModelProperty({ example: 15.0 })
@@ -48,5 +46,5 @@ export class BeerDto {
   @IsInt()
   @ApiModelProperty({ example: 5 })
   @Field(() => Int)
-  readonly stock?: number;
+  stock?: number;
 }
