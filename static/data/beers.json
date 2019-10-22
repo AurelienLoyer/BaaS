@@ -26,7 +26,7 @@
     {
         "id": 4,
         "label": "Paix Dieu",
-        "description": "Selon la rumeur, la Jack Hammer serait une bière tellement houblonnée que l'on y retrouverait plus d'amertume que le palais humain ne puisse détecter.",
+        "description": "La Paix-Dieu est la seule bière d'abbaye brassée en pleine lune par la Brasserie Caulier.",
         "image": "/static/img/paixdieu.jpg",
         "price": 3.50,
         "stock": 1
