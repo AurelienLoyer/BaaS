@@ -45,7 +45,7 @@
     "rimraf": "^2.6.2",
     "rxjs": "^6.4.0",
     "swagger-ui-express": "^4.0.2",
-    "type-graphql": "^0.17.4"
+    "type-graphql": "^0.17.6"
   },
   "devDependencies": {
     "@nestjs/testing": "6.5.3",
