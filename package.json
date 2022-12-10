@@ -31,7 +31,7 @@
     "@nestjs/graphql": "6.5.1",
     "@nestjs/jwt": "6.1.1",
     "@nestjs/passport": "6.1.0",
-    "@nestjs/platform-express": "6.6.7",
+    "@nestjs/platform-express": "9.2.1",
     "@nestjs/swagger": "3.1.0",
     "apollo-server-express": "^2.8.1",
     "class-transformer": "^0.2.3",
